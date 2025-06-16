@@ -99,7 +99,8 @@ API_KEY = TopSecretKeyInDevelopmentEnvironment
 > Production için gerekli **xcconfig** dosyası Github Actions ile oluşturulmaktadır.
 
 Bu aşamaya kadar geldiyseniz projeyi çalıştırdığınız zaman aşağıdaki gibi bir ekranla karşılaşacaksınız.
-![Simulator Screenshot - iPhone 16 Pro Max - 2025-06-16 at 20 41 40](https://github.com/user-attachments/assets/8068d5b3-9fd6-479f-97d9-c883aba863d1)
+
+<img width="250" alt="image" src="https://github.com/user-attachments/assets/8068d5b3-9fd6-479f-97d9-c883aba863d1" />
 
 ### 5. Xcode'da Configuration Dosyasını Bağlama
 
@@ -145,9 +146,9 @@ git push -u origin main
 4. Value: `TopSecretKeyInProductionEnvironment`
 5. **"Add secret"** butonuna tıklayın
 
-<img width="1597" alt="image" src="https://github.com/user-attachments/assets/d2aadae8-02f7-428b-a571-be48aa93a855" />
-<img width="837" alt="image" src="https://github.com/user-attachments/assets/55e9a57b-4c99-4a55-85fd-87c93320a11a" />
-<img width="802" alt="image" src="https://github.com/user-attachments/assets/e1e448f1-ee96-454f-b40a-1edc1a5df559" />
+<img width="1000" alt="image" src="https://github.com/user-attachments/assets/d2aadae8-02f7-428b-a571-be48aa93a855" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/55e9a57b-4c99-4a55-85fd-87c93320a11a" />
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/e1e448f1-ee96-454f-b40a-1edc1a5df559" />
 
 ### 9. GitHub Actions Workflow Oluşturma
 
@@ -286,7 +287,8 @@ xcrun simctl install booted Payload/SecretDemo.app
 ```
 
 .app dosyasını simulatöre kurduğunuz zaman aşağıdaki gibi bir ekranla karşılaşacaksınız. Burada 8. adımda eklediğimiz Production ortamına ait gizli veri artık güvenli bir şekilde projemize geliyor.
-![Simulator Screenshot - iPhone 16 Pro Max - 2025-06-16 at 20 53 05](https://github.com/user-attachments/assets/c4cbcd90-cb13-48ae-8265-7d32c2611630)
+<img width="250" alt="image" src="https://github.com/user-attachments/assets/c4cbcd90-cb13-48ae-8265-7d32c2611630" />
+
 
 ## 📖 İleri Okuma
 
