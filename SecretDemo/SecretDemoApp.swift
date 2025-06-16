@@ -9,6 +9,12 @@ import SwiftUI
 
 @main
 struct SecretDemoApp: App {
+    init() {
+        if let configPath = Bundle.main.path(forResource: "Secrets", ofType: "xcconfig") {
+            print("Loaded config from: \(configPath)")
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
