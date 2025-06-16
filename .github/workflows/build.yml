@@ -71,26 +71,6 @@ jobs:
           - `SecretDemo-Simulator.ipa` - iOS Simulator build
           - `build-info.txt` - Build information
         draft: false
-        prerelease: true
-        files: |
-          build/SecretDemo-Simulator.ipa
-          build-info.txt
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    
-    # Tag'lenmiş release'ler için
-    - name: Create Tagged Release
-      if: startsWith(github.ref, 'refs/tags/')
-      uses: softprops/action-gh-release@v1
-      with:
-        name: "Release ${{ github.ref_name }}"
-        body: |
-          Official release ${{ github.ref_name }}
-          
-          **What's included:**
-          - iOS Simulator build with API key from GitHub Secrets
-          - Build information file
-        draft: false
         prerelease: false
         files: |
           build/SecretDemo-Simulator.ipa
