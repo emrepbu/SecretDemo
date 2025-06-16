@@ -98,10 +98,6 @@ API_KEY = TopSecretKeyInDevelopmentEnvironment
 
 > Production için gerekli **xcconfig** dosyası Github Actions ile oluşturulmaktadır.
 
-Bu aşamaya kadar geldiyseniz projeyi çalıştırdığınız zaman aşağıdaki gibi bir ekranla karşılaşacaksınız.
-
-<img width="250" alt="image" src="https://github.com/user-attachments/assets/8068d5b3-9fd6-479f-97d9-c883aba863d1" />
-
 ### 5. Xcode'da Configuration Dosyasını Bağlama
 
 1. Xcode'da projenizi açın
@@ -109,7 +105,12 @@ Bu aşamaya kadar geldiyseniz projeyi çalıştırdığınız zaman aşağıdaki
 3. PROJECT → SecretDemo seçin
 4. Info sekmesine gidin
 5. Configurations bölümünde Debug ve Release için Config dosyasını seçin
+6. 
 <img width="1363" alt="image" src="https://github.com/user-attachments/assets/08819462-169d-43f4-ad0c-f944b7d0bf81" />
+
+Bu aşamaya kadar geldiyseniz projeyi çalıştırdığınız zaman aşağıdaki gibi bir ekranla karşılaşacaksınız.
+
+<img width="250" alt="image" src="https://github.com/user-attachments/assets/90802e23-7766-4593-b2da-8d4fcb3a5f9a" />
 
 ### 6. .gitignore Dosyası
 
