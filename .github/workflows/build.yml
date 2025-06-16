@@ -24,9 +24,8 @@ jobs:
     
     - name: Create Config file with Secret
       run: |
-        echo "API_KEY_VALUE = ${{ secrets.API_KEY_VALUE }}" > Config.xcconfig
-        echo "API_KEY = $(API_KEY_VALUE)" >> Config.xcconfig
-    
+        echo "API_KEY = ${{ secrets.API_KEY_VALUE }}" > Config.xcconfig
+        
     - name: Build iOS App
       run: |
         xcodebuild -project SecretDemo.xcodeproj \
