@@ -35,6 +35,25 @@ jobs:
                    -scheme SecretDemo \
                    -sdk iphonesimulator \
                    -configuration Debug \
+                   -derivedDataPath ./build \
                    -xcconfig Config.xcconfig \
                    build
     
+    - name: Create IPA (Simulator Build)
+      run: |
+        cd build/Build/Products/Debug-iphonesimulator
+        mkdir Payload
+        cp -R SecretDemo.app Payload/
+        zip -r SecretDemo-Simulator.ipa Payload
+        cd -
+        cp build/Build/Products/Debug-iphonesimulator/SecretDemo-Simulator.ipa .
+    
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: SecretDemo-Build
+        path: |
+          SecretDemo-Simulator.ipa
+          build/Build/Products/Debug-iphonesimulator/SecretDemo.app
+        retention-days: 7
+        
