@@ -1,6 +1,6 @@
 # iOS CI/CD Pipeline Tutorial: GitHub Secrets ile Güvenli Key Yönetimi
 
-Bu dokükenda, iOS uygulamalarında hassas bilgileri (API keys, secrets vb.) güvenli bir şekilde yönetmek için GitHub Actions ve GitHub Secrets kullanarak CI/CD pipeline kurulumunu adım adım anlatmaktadır.
+Bu dokümanda, iOS uygulamalarında hassas bilgileri (API keys, secrets vb.) güvenli bir şekilde yönetmek için GitHub Actions ve GitHub Secrets kullanarak CI/CD pipeline kurulumunu adım adım anlatmaktadır.
 
 ## Adım Adım Kurulum
 
