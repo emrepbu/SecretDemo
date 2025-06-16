@@ -80,17 +80,27 @@ Info.plist dosyanıza şu satırı ekleyin:
 <key>API_KEY</key>
 <string>$(API_KEY)</string>
 ```
+<img width="1016" alt="image" src="https://github.com/user-attachments/assets/9bfb323e-ef6f-4769-93fb-6eb1d049ba72" />
 
 ### 4. Configuration File Oluşturma
 
-Proje root dizininde `Config.xcconfig` dosyası oluşturun:
+Proje root dizininde `Config.xcconfig` dosyası aşağıdaki komut ile oluşturun:
+```bash
+touch Config.xcconfig
+```
+
+Ardından dosya içerisini aşağıdaki gibi güncelleyin: 
 
 ```xcconfig
 // Local test için
-API_KEY_VALUE = LOCAL_TEST_KEY
-API_KEY = $(API_KEY_VALUE)
+API_KEY = TopSecretKeyInDevelopmentEnvironment
 ```
-> Release için gerekli xcconfig dosyası Github Actions ile oluşturulmaktadır.
+
+> Production için gerekli **xcconfig** dosyası Github Actions ile oluşturulmaktadır.
+
+Bu aşamaya kadar geldiyseniz projeyi çalıştırdığınız zaman aşağıdaki gibi bir ekranla karşılaşacaksınız.
+![Simulator Screenshot - iPhone 16 Pro Max - 2025-06-16 at 20 41 40](https://github.com/user-attachments/assets/8068d5b3-9fd6-479f-97d9-c883aba863d1)
+
 ### 5. Xcode'da Configuration Dosyasını Bağlama
 
 1. Xcode'da projenizi açın
@@ -98,18 +108,19 @@ API_KEY = $(API_KEY_VALUE)
 3. PROJECT → SecretDemo seçin
 4. Info sekmesine gidin
 5. Configurations bölümünde Debug ve Release için Config dosyasını seçin
+<img width="1363" alt="image" src="https://github.com/user-attachments/assets/08819462-169d-43f4-ad0c-f944b7d0bf81" />
 
 ### 6. .gitignore Dosyası
 
 ```gitignore
-# Configuration files with secrets
-Config.xcconfig
-*.xcconfig
-
 # Xcode
 *.xcodeproj/xcuserdata/
 *.xcworkspace/xcuserdata/
 *.xcuserstate
+
+# Config files with secrets
+# !!! PRODUCTION ORTAMINDA gitignore DOSYANIZA '*.xcconfig' DEĞERİNİ EKLEMEYİ UNUTMAYIN !!!
+# *.xcconfig
 
 # Build
 build/
@@ -131,8 +142,12 @@ git push -u origin main
 1. GitHub repository sayfasında: **Settings** → **Secrets and variables** → **Actions**
 2. **"New repository secret"** butonuna tıklayın
 3. Name: `API_KEY_VALUE`
-4. Value: `SUPER_SECRET_KEY_12345`
+4. Value: `TopSecretKeyInProductionEnvironment`
 5. **"Add secret"** butonuna tıklayın
+
+<img width="1597" alt="image" src="https://github.com/user-attachments/assets/d2aadae8-02f7-428b-a571-be48aa93a855" />
+<img width="837" alt="image" src="https://github.com/user-attachments/assets/55e9a57b-4c99-4a55-85fd-87c93320a11a" />
+<img width="802" alt="image" src="https://github.com/user-attachments/assets/e1e448f1-ee96-454f-b40a-1edc1a5df559" />
 
 ### 9. GitHub Actions Workflow Oluşturma
 
@@ -162,7 +177,7 @@ jobs:
       uses: maxim-lobanov/setup-xcode@v1
       with:
         xcode-version: latest-stable
-    
+    # Production için gerekli 'xcconfig' dosyası bu kısımda oluşturulur.
     - name: Create Config file with Secret
       run: |
         echo "API_KEY = ${{ secrets.API_KEY_VALUE }}" > Config.xcconfig
@@ -255,6 +270,8 @@ Info.plist (Compiled App)
 1. Repository sayfasında sağ tarafta **"Releases"** bölümüne tıklayın
 2. En son release'i bulun
 3. Assets bölümünden `SecretDemo-Simulator.ipa` dosyasını indirin
+<img width="408" alt="image" src="https://github.com/user-attachments/assets/b6d7637d-111a-4ba9-ab29-019882eb27c2" />
+<img width="1266" alt="image" src="https://github.com/user-attachments/assets/1493c54f-8b74-47b5-9f45-320d34bf0f80" />
 
 ### Simulator'a Yükleme
 
@@ -267,6 +284,9 @@ xcrun simctl install booted Payload/SecretDemo.app
 
 # Veya Finder'dan sürükle-bırak yapın
 ```
+
+.app dosyasını simulatöre kurduğunuz zaman aşağıdaki gibi bir ekranla karşılaşacaksınız. Burada 8. adımda eklediğimiz Production ortamına ait gizli veri artık güvenli bir şekilde projemize geliyor.
+![Simulator Screenshot - iPhone 16 Pro Max - 2025-06-16 at 20 53 05](https://github.com/user-attachments/assets/c4cbcd90-cb13-48ae-8265-7d32c2611630)
 
 ## 📖 İleri Okuma
 
