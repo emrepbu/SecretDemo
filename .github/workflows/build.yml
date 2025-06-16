@@ -31,8 +31,8 @@ jobs:
     
     - name: Build iOS App
       run: |
-        xcodebuild -project SecretKeyDemo.xcodeproj \
-                   -scheme SecretKeyDemo \
+        xcodebuild -project SecretDemo.xcodeproj \
+                   -scheme SecretDemo \
                    -sdk iphonesimulator \
                    -configuration Debug \
                    -xcconfig Config.xcconfig \
@@ -40,7 +40,7 @@ jobs:
     
     - name: Run Tests
       run: |
-        xcodebuild test -project SecretKeyDemo.xcodeproj \
-                        -scheme SecretKeyDemo \
+        xcodebuild test -project SecretDemo.xcodeproj \
+                        -scheme SecretDemo \
                         -sdk iphonesimulator \
                         -destination 'platform=iOS Simulator,name=iPhone 14'
