@@ -1,17 +1,14 @@
 name: iOS Build and Release
+
 on:
   push:
-    branches: [ main ]
-    tags:
-      - 'v*'  # v1.0, v2.0.1 gibi tag'ler için
-  pull_request:
     branches: [ main ]
 
 jobs:
   build:
     runs-on: macos-latest
     permissions:
-      contents: write  # Release oluşturmak için gerekli
+      contents: write
     
     steps:
     - name: Checkout code
@@ -44,35 +41,12 @@ jobs:
         zip -r ../../../SecretDemo-Simulator.ipa Payload
         cd -
     
-    - name: Generate Build Info
-      run: |
-        echo "Build Date: $(date)" > build-info.txt
-        echo "Commit: ${{ github.sha }}" >> build-info.txt
-        echo "Branch: ${{ github.ref_name }}" >> build-info.txt
-        echo "API Key Status: Injected from GitHub Secrets" >> build-info.txt
-    
-    # Her push'ta otomatik release
     - name: Create Release
-      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       uses: softprops/action-gh-release@v1
       with:
         tag_name: build-${{ github.run_number }}
         name: "Build #${{ github.run_number }}"
-        body: |
-          Automatic build from commit ${{ github.sha }}
-          
-          **Build Details:**
-          - Branch: ${{ github.ref_name }}
-          - Commit: ${{ github.sha }}
-          - API Key: Injected from GitHub Secrets
-          
-          **Download:**
-          - `SecretDemo-Simulator.ipa` - iOS Simulator build
-          - `build-info.txt` - Build information
-        draft: false
-        prerelease: false
         files: |
           build/SecretDemo-Simulator.ipa
-          build-info.txt
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
