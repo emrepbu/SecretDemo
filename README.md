@@ -267,8 +267,6 @@ xcrun simctl install booted Payload/SecretDemo.app
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/c4cbcd90-cb13-48ae-8265-7d32c2611630" />
 
 
-## 📖 İleri Okuma
-
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Xcode Build Configuration Files](https://developer.apple.com/documentation/xcode/build-settings-reference)
 - [iOS Code Signing in CI/CD](https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development)
