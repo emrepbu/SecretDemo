@@ -2,7 +2,7 @@
 
 Bu dokükenda, iOS uygulamalarında hassas bilgileri (API keys, secrets vb.) güvenli bir şekilde yönetmek için GitHub Actions ve GitHub Secrets kullanarak CI/CD pipeline kurulumunu adım adım anlatmaktadır.
 
-## 🚀 Adım Adım Kurulum
+## Adım Adım Kurulum
 
 ### 1. SwiftUI Projesi Oluşturma
 
@@ -99,15 +99,7 @@ API_KEY = $(API_KEY_VALUE)
 4. Info sekmesine gidin
 5. Configurations bölümünde Debug ve Release için Config dosyasını seçin
 
-### 6. Build Settings Ayarları
-
-1. Target → Build Settings
-2. "Info.plist preprocessing" arayın
-3. Şu ayarları yapın:
-   - **Info.plist Preprocessing**: YES
-   - **Preprocess Info.plist File**: YES
-
-### 7. .gitignore Dosyası
+### 6. .gitignore Dosyası
 
 ```gitignore
 # Configuration files with secrets
@@ -124,7 +116,7 @@ build/
 DerivedData/
 ```
 
-### 8. GitHub Repository Oluşturma
+### 7. GitHub Repository Oluşturma
 
 ```bash
 git init
@@ -134,7 +126,7 @@ git remote add origin https://github.com/YOUR_USERNAME/SecretDemo.git
 git push -u origin main
 ```
 
-### 9. GitHub Secrets Ekleme
+### 8. GitHub Secrets Ekleme
 
 1. GitHub repository sayfasında: **Settings** → **Secrets and variables** → **Actions**
 2. **"New repository secret"** butonuna tıklayın
@@ -142,7 +134,7 @@ git push -u origin main
 4. Value: `SUPER_SECRET_KEY_12345`
 5. **"Add secret"** butonuna tıklayın
 
-### 10. GitHub Actions Workflow Oluşturma
+### 9. GitHub Actions Workflow Oluşturma
 
 `.github/workflows/build.yml` dosyası oluşturun:
 
@@ -227,7 +219,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-## 🔍 Nasıl Çalışır?
+## Nasıl Çalışır?
 
 ### Variable Substitution Süreci
 
