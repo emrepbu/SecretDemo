@@ -2,7 +2,7 @@
 
 Bu dokümanda, iOS uygulamalarında hassas bilgileri (API keys, secrets vb.) güvenli bir şekilde yönetmek için GitHub Actions ve GitHub Secrets kullanarak CI/CD pipeline kurulumunu adım adım anlatmaktadır.
 
-> Bu dokumandaki KEY ve VALUE değerlerini projenize uygun olarak seçin ve basit 
+> Bu dokümandaki KEY ve VALUE değerlerini projenize uygun olarak seçin ve güvenli bir şekilde oluşturulduğundan emin olun.
 
 ## Adım Adım Kurulum
 
@@ -70,10 +70,10 @@ struct ContentView: View {
         }
     }
 }
+
 #Preview {
     ContentView()
 }
-
 ```
 
 ### 3. Info.plist Konfigürasyonu
@@ -84,23 +84,25 @@ Info.plist dosyanıza şu satırı ekleyin:
 <key>API_KEY</key>
 <string>$(API_KEY)</string>
 ```
+
 <img width="1016" alt="image" src="https://github.com/user-attachments/assets/9bfb323e-ef6f-4769-93fb-6eb1d049ba72" />
 
 ### 4. Configuration File Oluşturma
 
-Proje root dizininde `Config.xcconfig` dosyası aşağıdaki komut ile oluşturun:
+Proje root dizininde `Config.xcconfig` dosyasını aşağıdaki komut ile oluşturun:
+
 ```bash
 touch Config.xcconfig
 ```
 
-Ardından dosya içerisini aşağıdaki gibi güncelleyin: 
+Ardından dosya içeriğini aşağıdaki gibi güncelleyin:
 
 ```xcconfig
 // Local test için
 API_KEY = TopSecretKeyInDevelopmentEnvironment
 ```
 
-> Production için gerekli **xcconfig** dosyası Github Actions ile oluşturulmaktadır.
+> Production için gerekli **xcconfig** dosyası GitHub Actions ile oluşturulmaktadır.
 
 ### 5. Xcode'da Configuration Dosyasını Bağlama
 
@@ -109,10 +111,10 @@ API_KEY = TopSecretKeyInDevelopmentEnvironment
 3. PROJECT → SecretDemo seçin
 4. Info sekmesine gidin
 5. Configurations bölümünde Debug ve Release için Config dosyasını seçin
-   
+
 <img width="1363" alt="image" src="https://github.com/user-attachments/assets/08819462-169d-43f4-ad0c-f944b7d0bf81" />
 
-Bu aşamaya kadar geldiyseniz projeyi çalıştırdığınız zaman aşağıdaki gibi bir ekranla karşılaşacaksınız.
+Bu aşamaya kadar geldiyseniz projeyi çalıştırdığınızda aşağıdaki gibi bir ekranla karşılaşacaksınız.
 
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/90802e23-7766-4593-b2da-8d4fcb3a5f9a" />
 
@@ -125,7 +127,7 @@ Bu aşamaya kadar geldiyseniz projeyi çalıştırdığınız zaman aşağıdaki
 *.xcuserstate
 
 # Config files with secrets
-# !!! PRODUCTION ORTAMINDA gitignore DOSYANIZA '*.xcconfig' DEĞERİNİ EKLEMEYİ UNUTMAYIN !!!
+# !!! PRODUCTION ORTAMINDA .gitignore DOSYANIZA '*.xcconfig' DEĞERİNİ EKLEMEYİ UNUTMAYIN !!!
 # *.xcconfig
 
 # Build
@@ -266,10 +268,87 @@ xcrun simctl install booted Payload/SecretDemo.app
 # Veya Finder'dan sürükle-bırak yapın
 ```
 
-.app dosyasını simulatöre kurduğunuz zaman aşağıdaki gibi bir ekranla karşılaşacaksınız. Burada 8. adımda eklediğimiz Production ortamına ait gizli veri artık güvenli bir şekilde projemize geliyor.
+.app dosyasını simulatöre kurduğunuzda aşağıdaki gibi bir ekranla karşılaşacaksınız. Burada 8. adımda eklediğimiz production ortamına ait gizli veri artık güvenli bir şekilde projemize geliyor.
 
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/c4cbcd90-cb13-48ae-8265-7d32c2611630" />
 
+## Güvenlik Uyarıları ve Önemli Notlar
+
+### Kritik Güvenlik Uyarıları
+
+#### 1. Config Dosyalarını ASLA Commit Etmeyin
+```bash
+# YANLIŞ - Config dosyası Git'e eklenmemeli
+git add Config.xcconfig  
+
+# DOĞRU - .gitignore'a ekleyin
+echo "*.xcconfig" >> .gitignore
+```
+
+**Neden?** Config dosyaları gerçek API key'leri içerebilir. Bir kez commit edilirse Git geçmişinde kalır!
+
+#### 2. GitHub Secrets'a Erişim Kontrolü
+- Repository Settings → Manage access kısmından kimlerin erişimi olduğunu kontrol edin
+- Sadece güvendiğiniz kişilere admin/write yetkisi verin
+- Secrets'ları düzenli olarak rotate edin (değiştirin)
+
+#### 3. Public Repository Riski
+```yaml
+# Public repo'da bu tehlikeli olabilir:
+- name: Debug Config
+  run: |
+    cat Config.xcconfig  # Secret'ı loglara yazdırır
+```
+
+**Not:** GitHub Actions loglarında secrets otomatik maskelenir ama yine de dikkatli olun!
+
+### Production Ortamı İçin Uyarılar
+
+#### 1. Bu Yöntem Demo/Development İçindir
+Production uygulamalar için:
+- iOS Keychain kullanın
+- Certificate pinning uygulayın  
+- Encrypted configuration dosyaları kullanın
+- Runtime'da API endpoint'ten key alın
+
+#### 2. Secret Rotation Politikası
+- API key'leri düzenli değiştirin (3-6 ayda bir)
+- Eski key'leri kullanımdan kaldırın
+- Access log'larını kontrol edin
+
+### Yaygın Hatalar ve Çözümleri
+
+#### 1. Secret Adı Hatası
+```yaml
+# YANLIŞ - Büyük/küçük harf uyumsuzluğu
+${{ secrets.api_key_value }}  
+
+# DOĞRU - Tam eşleşmeli
+${{ secrets.API_KEY_VALUE }}
+```
+
+#### 2. Info.plist Processing Hatası
+```xml
+<!-- Preprocessing kapalıysa çalışmaz -->
+<string>$(API_KEY)</string>
+
+<!-- Alternatif: Doğrudan string -->
+<string>YOUR_KEY_HERE</string>
+```
+
+### Güvenlik Kontrol Listesi
+
+Deployment öncesi kontrol edin:
+
+- [ ] Config dosyaları .gitignore'da mı?
+- [ ] Secrets düzgün adlandırılmış mı?
+- [ ] Repository private mı? (hassas projeler için)
+- [ ] Gereksiz log/debug kodu temizlendi mi?
+- [ ] Team üyeleri güvenlik politikasını biliyor mu?
+- [ ] Backup secret recovery planı var mı?
+- [ ] API rate limit kontrolü yapıldı mı?
+
+## Referanslar
 
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [Xcode Build Configuration Files](https://developer.apple.com/documentation/xcode/build-settings-reference)
@@ -278,3 +357,5 @@ xcrun simctl install booted Payload/SecretDemo.app
 ---
 
 **Not**: Bu tutorial eğitim amaçlıdır. Production ortamında daha gelişmiş güvenlik önlemleri (KeyChain, encrypted storage, certificate pinning vb.) kullanmanız önerilir.
+
+**Hatırlatma**: Güvenlik bir kerelik iş değil, sürekli bir süreçtir. Düzenli olarak güvenlik pratiklerinizi gözden geçirin ve güncelleyin.
