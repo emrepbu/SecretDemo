@@ -4,8 +4,8 @@
 *.xcuserstate
 
 # Config files with secrets
-Config.xcconfig
-*.xcconfig
+# !!! PRODUCTION ORTAMINDA gitignore DOSYANIZA '*.xcconfig' DEĞERİNİ EKLEMEYİ UNUTMAYIN
+# *.xcconfig
 
 # Build
 build/
