@@ -263,6 +263,7 @@ xcrun simctl install booted Payload/SecretDemo.app
 ```
 
 .app dosyasını simulatöre kurduğunuz zaman aşağıdaki gibi bir ekranla karşılaşacaksınız. Burada 8. adımda eklediğimiz Production ortamına ait gizli veri artık güvenli bir şekilde projemize geliyor.
+
 <img width="250" alt="image" src="https://github.com/user-attachments/assets/c4cbcd90-cb13-48ae-8265-7d32c2611630" />
 
 
