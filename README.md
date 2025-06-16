@@ -246,8 +246,9 @@ Info.plist (Compiled App)
 1. Repository sayfasında sağ tarafta **"Releases"** bölümüne tıklayın
 2. En son release'i bulun
 3. Assets bölümünden `SecretDemo-Simulator.ipa` dosyasını indirin
-<img width="408" alt="image" src="https://github.com/user-attachments/assets/b6d7637d-111a-4ba9-ab29-019882eb27c2" />
-<img width="1266" alt="image" src="https://github.com/user-attachments/assets/1493c54f-8b74-47b5-9f45-320d34bf0f80" />
+
+<img width="363" alt="image" src="https://github.com/user-attachments/assets/d4718c8b-1449-47cd-87e8-c78da2897cdb" />
+<img width="1245" alt="image" src="https://github.com/user-attachments/assets/619e402c-a15e-4fd0-a087-c42ee45bcc1c" />
 
 ### Simulator'a Yükleme
 
