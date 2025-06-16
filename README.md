@@ -2,6 +2,8 @@
 
 Bu dokümanda, iOS uygulamalarında hassas bilgileri (API keys, secrets vb.) güvenli bir şekilde yönetmek için GitHub Actions ve GitHub Secrets kullanarak CI/CD pipeline kurulumunu adım adım anlatmaktadır.
 
+> Bu dokumandaki KEY ve VALUE değerlerini projenize uygun olarak seçin ve basit 
+
 ## Adım Adım Kurulum
 
 ### 1. SwiftUI Projesi Oluşturma
@@ -14,6 +16,8 @@ Bu dokümanda, iOS uygulamalarında hassas bilgileri (API keys, secrets vb.) gü
 ```
 
 ### 2. ContentView.swift Oluşturma
+
+Burada test amaçlı olarak bir view oluşturuldu.
 
 ```swift
 import SwiftUI
@@ -58,7 +62,7 @@ struct ContentView: View {
     }
     
     func loadAPIKey() {
-        // Build time'da enjekte edilen değeri oku
+        // Build time'da inject edilen değeri okuyoruz
         if let key = Bundle.main.infoDictionary?["API_KEY"] as? String {
             apiKey = key
         } else {
@@ -105,7 +109,7 @@ API_KEY = TopSecretKeyInDevelopmentEnvironment
 3. PROJECT → SecretDemo seçin
 4. Info sekmesine gidin
 5. Configurations bölümünde Debug ve Release için Config dosyasını seçin
-6. 
+   
 <img width="1363" alt="image" src="https://github.com/user-attachments/assets/08819462-169d-43f4-ad0c-f944b7d0bf81" />
 
 Bu aşamaya kadar geldiyseniz projeyi çalıştırdığınız zaman aşağıdaki gibi bir ekranla karşılaşacaksınız.
