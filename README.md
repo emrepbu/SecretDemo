@@ -2,6 +2,7 @@
 
 Bu dokümanda, iOS uygulamalarında hassas bilgileri (API keys, secrets vb.) güvenli bir şekilde yönetmek için GitHub Actions ve GitHub Secrets kullanarak CI/CD pipeline kurulumunu adım adım anlatmaktadır.
 
+> [!CAUTION]
 > Bu dokümandaki KEY ve VALUE değerlerini projenize uygun olarak seçin ve güvenli bir şekilde oluşturulduğundan emin olun.
 
 ## Adım Adım Kurulum
